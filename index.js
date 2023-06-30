@@ -1,12 +1,14 @@
+import {config} from 'dotenv';
 import express from 'express';
 import multer from 'multer';
 import mongoose from 'mongoose';
-
 import {registerValidation, loginValidation, postCreateValidation} from './validations.js';
 import {UserController , PostController} from './controllers/index.js';
 import {handleValidationErrors , checkAuth} from './utils/index.js';
+config();
 
-mongoose.connect('mongodb+srv://admin:admin123@cluster0.enhkmrq.mongodb.net/blog?retryWrites=true&w=majority')
+mongoose
+		.connect(process.env.MONGODB_URL)
 		.then(() => console.log('DB OK'))
 		.catch((err) => console.log('DB ERROR', err));
 
